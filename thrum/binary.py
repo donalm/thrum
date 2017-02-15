@@ -12,6 +12,7 @@ import struct
 
 error = struct.error
 
+
 class Cache(object):
     '''
     Cache for pack/unpack methods, e.g. to unpack bytes representing a sequence
@@ -57,16 +58,16 @@ class Cache(object):
     @classmethod
     def _ints(cls):
         cls._create_funcs('i', cls._limit_ints,
-            cls.pack_ints, cls.unpack_ints)
+                          cls.pack_ints, cls.unpack_ints)
 
     @classmethod
     def _shorts(cls):
         cls._create_funcs('h', cls._limit_shorts,
-            cls.pack_shorts, cls.unpack_shorts)
+                          cls.pack_shorts, cls.unpack_shorts)
 
     @classmethod
     def get_pack_shorts_for_index(cls, index):
-        if not index in cls.pack_shorts:
+        if index not in cls.pack_shorts:
             packer, unpacker = cls._create_func_pair(index, 'h')
             return packer
 
@@ -74,12 +75,11 @@ class Cache(object):
 
     @classmethod
     def get_unpack_ints_for_index(cls, index):
-        if not index in cls.unpack_ints:
+        if index not in cls.unpack_ints:
             packer, unpacker = cls._create_func_pair(index, 'i')
             return unpacker
 
         return cls.unpack_ints[index]
-
 
 
 Cache.init()
@@ -101,11 +101,10 @@ h_pack = Cache.pack_shorts[1]
 h_unpack = Cache.unpack_shorts[1]
 
 
-
-
 def _pack_funcs(fmt):
     struc = struct.Struct('!' + fmt)
     return struc.pack, struc.unpack_from
+
 
 H_pack, H_unpack = _pack_funcs('H')
 I_pack, I_unpack = _pack_funcs('I')
@@ -137,4 +136,3 @@ B_pack, B_unpack = _pack_funcs('B')
 Bi_pack, Bi_unpack = _pack_funcs('Bi')
 BBBB_pack, BBBB_unpack = _pack_funcs('BBBB')
 BBBBBB_pack, BBBBBB_unpack = _pack_funcs('BBBBBB')
-
