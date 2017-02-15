@@ -23,8 +23,8 @@ NUMERIC_NEG = 0x4000
 NUMERIC_NAN = 0xC000
 
 # Default protocol version
-VERSION_MAJOR    = 3
-VERSION_MINOR    = 0
+VERSION_MAJOR = 3
+VERSION_MINOR = 0
 DEFAULT_PROTOCOL_VERSION = (VERSION_MAJOR << 16) | VERSION_MINOR
 
 # Message codes
@@ -104,17 +104,19 @@ except Exception as e:
 APPLICATION_NAME = '%s_%s_%s' % (HOSTNAME, PID, EXECUTABLE,)
 
 MIN_INT2 = -2 ** 15
-MAX_INT2 =  2 ** 15 - 1
 MIN_INT4 = -2 ** 31
-MAX_INT4 =  2 ** 31 - 1
 MIN_INT8 = -2 ** 63
-MAX_INT8 =  2 ** 63 - 1
+
+MAX_INT2 = 2 ** 15 - 1
+MAX_INT4 = 2 ** 31 - 1
+MAX_INT8 = 2 ** 63 - 1
 
 MIN_INT2U = 0
-MAX_INT2U = 2 ** 16 - 1
 MIN_INT4U = 0
-MAX_INT4U = 2 ** 32 - 1
 MIN_INT8U = 0
+
+MAX_INT2U = 2 ** 16 - 1
+MAX_INT4U = 2 ** 32 - 1
 MAX_INT8U = 2 ** 64 - 1
 
 BINARY_SPACE = b' '
@@ -174,4 +176,3 @@ pg_to_py = {
     'win1258': 'cp1258',
     'unicode': 'utf-8',  # Needed for Amazon Redshift
 }
-

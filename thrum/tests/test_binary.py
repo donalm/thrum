@@ -17,7 +17,6 @@ import struct
 
 try:
     from exceptions import KeyError
-    from exceptions import ValueError
 except ImportError:
     pass
 
@@ -26,6 +25,7 @@ from twisted.trial import unittest
 
 from thrum import constants
 from thrum import binary
+
 
 class BinaryTests(unittest.TestCase):
 
@@ -48,11 +48,11 @@ class BinaryTests(unittest.TestCase):
 
         self.assertEqual(b'\x7f\xff', binary.h_pack(constants.MAX_INT2))
         with self.assertRaises(binary.error):
-            binary.h_pack(constants.MAX_INT2 +1)
+            binary.h_pack(constants.MAX_INT2 + 1)
 
         self.assertEqual(b'\x80\x00', binary.h_pack(constants.MIN_INT2))
         with self.assertRaises(binary.error):
-            binary.h_pack(constants.MIN_INT2 -1)
+            binary.h_pack(constants.MIN_INT2 - 1)
 
     def test_h_unpack(self):
         self.assertEqual(binary.h_unpack(b'\x7f\xff'), (constants.MAX_INT2,))
@@ -63,11 +63,11 @@ class BinaryTests(unittest.TestCase):
 
         self.assertEqual(b'\xff\xff', binary.H_pack(constants.MAX_INT2U))
         with self.assertRaises(binary.error):
-            binary.H_pack(constants.MAX_INT2U +1)
+            binary.H_pack(constants.MAX_INT2U + 1)
 
         self.assertEqual(b'\x00\x00', binary.H_pack(constants.MIN_INT2U))
         with self.assertRaises(binary.error):
-            binary.H_pack(constants.MIN_INT2U -1)
+            binary.H_pack(constants.MIN_INT2U - 1)
 
     def test_H_unpack(self):
         self.assertEqual(binary.H_unpack(b'\xff\xff'), (constants.MAX_INT2U,))
@@ -76,11 +76,11 @@ class BinaryTests(unittest.TestCase):
     def test_i_pack(self):
         self.assertEqual(b'\x7f\xff\xff\xff', binary.i_pack(constants.MAX_INT4))
         with self.assertRaises(binary.error):
-            binary.i_pack(constants.MAX_INT4 +1)
+            binary.i_pack(constants.MAX_INT4 + 1)
 
         self.assertEqual(b'\x80\x00\x00\x00', binary.i_pack(constants.MIN_INT4))
         with self.assertRaises(binary.error):
-            binary.i_pack(constants.MIN_INT4 -1)
+            binary.i_pack(constants.MIN_INT4 - 1)
 
     def test_i_unpack(self):
         self.assertEqual(binary.i_unpack(b'\x7f\xff\xff\xff'), (constants.MAX_INT4,))
@@ -89,11 +89,11 @@ class BinaryTests(unittest.TestCase):
     def test_I_pack(self):
         self.assertEqual(b'\xff\xff\xff\xff', binary.I_pack(constants.MAX_INT4U))
         with self.assertRaises(binary.error):
-            binary.I_pack(constants.MAX_INT4U +1)
+            binary.I_pack(constants.MAX_INT4U + 1)
 
         self.assertEqual(b'\x00\x00\x00\x00', binary.I_pack(constants.MIN_INT4U))
         with self.assertRaises(binary.error):
-            binary.I_pack(constants.MIN_INT4U -1)
+            binary.I_pack(constants.MIN_INT4U - 1)
 
     def test_I_unpack(self):
         self.assertEqual(binary.I_unpack(b'\xff\xff\xff\xff'), (constants.MAX_INT4U,))
@@ -102,11 +102,11 @@ class BinaryTests(unittest.TestCase):
     def test_q_pack(self):
         self.assertEqual(b'\x7f\xff\xff\xff\xff\xff\xff\xff', binary.q_pack(constants.MAX_INT8))
         with self.assertRaises(binary.error):
-            binary.q_pack(constants.MAX_INT8 +1)
+            binary.q_pack(constants.MAX_INT8 + 1)
 
         self.assertEqual(b'\x80\x00\x00\x00\x00\x00\x00\x00', binary.q_pack(constants.MIN_INT8))
         with self.assertRaises(binary.error):
-            binary.q_pack(constants.MIN_INT8 -1)
+            binary.q_pack(constants.MIN_INT8 - 1)
 
     def test_q_unpack(self):
         self.assertEqual(binary.q_unpack(b'\x7f\xff\xff\xff\xff\xff\xff\xff'), (constants.MAX_INT8,))
@@ -115,16 +115,16 @@ class BinaryTests(unittest.TestCase):
     def test_Q_pack(self):
         self.assertEqual(b'\xff\xff\xff\xff\xff\xff\xff\xff', binary.Q_pack(constants.MAX_INT8U))
         with self.assertRaises(binary.error):
-            binary.Q_pack(constants.MAX_INT8U +1)
+            binary.Q_pack(constants.MAX_INT8U + 1)
 
         if six.PY2:
             self.assertEqual(b'\x00\x00\x00\x00\x00\x00\x00\x00', binary.Q_pack(constants.MIN_INT8U))
             with self.assertRaises(Exception):
-                binary.Q_pack(constants.MIN_INT8U -1)
+                binary.Q_pack(constants.MIN_INT8U - 1)
         else:
             self.assertEqual(b'\x00\x00\x00\x00\x00\x00\x00\x00', binary.Q_pack(constants.MIN_INT8U))
             with self.assertRaises(binary.error):
-                binary.Q_pack(constants.MIN_INT8U -1)
+                binary.Q_pack(constants.MIN_INT8U - 1)
 
     def test_Q_unpack(self):
         self.assertEqual(binary.Q_unpack(b'\xff\xff\xff\xff\xff\xff\xff\xff'), (constants.MAX_INT8U,))
@@ -326,22 +326,22 @@ class BinaryTests(unittest.TestCase):
     def test_ihihih_pack(self):
         self.assertEqual(
             b'\x00\x00\x00\x01\x00\x02\x00\x00\x00\x03\x00\x04\x00\x00\x00\x05\x00\x06',
-            binary.ihihih_pack(1,2,3,4,5,6))
+            binary.ihihih_pack(1, 2, 3, 4, 5, 6))
 
     def test_ihihih_unpack(self):
         self.assertEqual(
             binary.ihihih_unpack(b'\x00\x00\x00\x01\x00\x02\x00\x00\x00\x03\x00\x04\x00\x00\x00\x05\x00\x06'),
-            (1,2,3,4,5,6))
+            (1, 2, 3, 4, 5, 6))
 
     def test_hhHh_pack(self):
         self.assertEqual(
             b'\x00\x01\x00\x01\x00\x01\x00\x01',
-            binary.hhHh_pack(1,1,1,1))
+            binary.hhHh_pack(1, 1, 1, 1))
 
     def test_hhHh_unpack(self):
         self.assertEqual(
             binary.hhHh_unpack(b'\x00\x01\x00\x01\x00\x01\x00\x01'),
-            (1,1,1,1))
+            (1, 1, 1, 1))
 
     def test_B_pack(self):
         self.assertEqual(
@@ -400,15 +400,8 @@ class BinaryTests(unittest.TestCase):
             short_unpacker = binary.Cache.unpack_shorts[l]
             self.assertEqual(candidate, short_unpacker(result))
 
+        with self.assertRaises(KeyError):
+            binary.Cache.pack_ints[binary.Cache._limit_ints]
 
         with self.assertRaises(KeyError):
-            packer = binary.Cache.pack_ints[binary.Cache._limit_ints]
-
-        with self.assertRaises(KeyError):
-            packer = binary.Cache.pack_shorts[binary.Cache._limit_shorts]
-
-
-
-
-
-
+            binary.Cache.pack_shorts[binary.Cache._limit_shorts]

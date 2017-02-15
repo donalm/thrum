@@ -8,12 +8,7 @@ test_thrum
 Tests for `thrum` module.
 """
 
-
-import sys
 import unittest
-
-from thrum import thrum
-
 
 
 class TestThrum(unittest.TestCase):
