@@ -44,6 +44,8 @@ nosetests.xml
 coverage.xml
 *,cover
 .hypothesis/
+_trial_temp
+_tests
 
 # Translations
 *.mo
@@ -61,3 +63,6 @@ target/
 # virtualenv
 venv/
 venv35/
+
+# vim tempfiles
+*.swp
