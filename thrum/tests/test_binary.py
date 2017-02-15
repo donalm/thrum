@@ -47,11 +47,11 @@ class BinaryTests(unittest.TestCase):
         # signed short
 
         self.assertEqual(b'\x7f\xff', binary.h_pack(constants.MAX_INT2))
-        with self.assertRaises(struct.error):
+        with self.assertRaises(binary.error):
             binary.h_pack(constants.MAX_INT2 +1)
 
         self.assertEqual(b'\x80\x00', binary.h_pack(constants.MIN_INT2))
-        with self.assertRaises(struct.error):
+        with self.assertRaises(binary.error):
             binary.h_pack(constants.MIN_INT2 -1)
 
     def test_h_unpack(self):
@@ -62,11 +62,11 @@ class BinaryTests(unittest.TestCase):
         # Unsigned short
 
         self.assertEqual(b'\xff\xff', binary.H_pack(constants.MAX_INT2U))
-        with self.assertRaises(struct.error):
+        with self.assertRaises(binary.error):
             binary.H_pack(constants.MAX_INT2U +1)
 
         self.assertEqual(b'\x00\x00', binary.H_pack(constants.MIN_INT2U))
-        with self.assertRaises(struct.error):
+        with self.assertRaises(binary.error):
             binary.H_pack(constants.MIN_INT2U -1)
 
     def test_H_unpack(self):
@@ -75,11 +75,11 @@ class BinaryTests(unittest.TestCase):
 
     def test_i_pack(self):
         self.assertEqual(b'\x7f\xff\xff\xff', binary.i_pack(constants.MAX_INT4))
-        with self.assertRaises(struct.error):
+        with self.assertRaises(binary.error):
             binary.i_pack(constants.MAX_INT4 +1)
 
         self.assertEqual(b'\x80\x00\x00\x00', binary.i_pack(constants.MIN_INT4))
-        with self.assertRaises(struct.error):
+        with self.assertRaises(binary.error):
             binary.i_pack(constants.MIN_INT4 -1)
 
     def test_i_unpack(self):
@@ -88,11 +88,11 @@ class BinaryTests(unittest.TestCase):
 
     def test_I_pack(self):
         self.assertEqual(b'\xff\xff\xff\xff', binary.I_pack(constants.MAX_INT4U))
-        with self.assertRaises(struct.error):
+        with self.assertRaises(binary.error):
             binary.I_pack(constants.MAX_INT4U +1)
 
         self.assertEqual(b'\x00\x00\x00\x00', binary.I_pack(constants.MIN_INT4U))
-        with self.assertRaises(struct.error):
+        with self.assertRaises(binary.error):
             binary.I_pack(constants.MIN_INT4U -1)
 
     def test_I_unpack(self):
@@ -101,11 +101,11 @@ class BinaryTests(unittest.TestCase):
 
     def test_q_pack(self):
         self.assertEqual(b'\x7f\xff\xff\xff\xff\xff\xff\xff', binary.q_pack(constants.MAX_INT8))
-        with self.assertRaises(struct.error):
+        with self.assertRaises(binary.error):
             binary.q_pack(constants.MAX_INT8 +1)
 
         self.assertEqual(b'\x80\x00\x00\x00\x00\x00\x00\x00', binary.q_pack(constants.MIN_INT8))
-        with self.assertRaises(struct.error):
+        with self.assertRaises(binary.error):
             binary.q_pack(constants.MIN_INT8 -1)
 
     def test_q_unpack(self):
@@ -114,16 +114,16 @@ class BinaryTests(unittest.TestCase):
 
     def test_Q_pack(self):
         self.assertEqual(b'\xff\xff\xff\xff\xff\xff\xff\xff', binary.Q_pack(constants.MAX_INT8U))
-        with self.assertRaises(struct.error):
+        with self.assertRaises(binary.error):
             binary.Q_pack(constants.MAX_INT8U +1)
 
         if six.PY2:
             self.assertEqual(b'\x00\x00\x00\x00\x00\x00\x00\x00', binary.Q_pack(constants.MIN_INT8U))
-            with self.assertRaises(ValueError):
+            with self.assertRaises(Exception):
                 binary.Q_pack(constants.MIN_INT8U -1)
         else:
             self.assertEqual(b'\x00\x00\x00\x00\x00\x00\x00\x00', binary.Q_pack(constants.MIN_INT8U))
-            with self.assertRaises(struct.error):
+            with self.assertRaises(binary.error):
                 binary.Q_pack(constants.MIN_INT8U -1)
 
     def test_Q_unpack(self):
