@@ -87,7 +87,9 @@ class TsVector(object):
 
     def __getitem__(self, index):
         if type(index) == int:
-            return self.entries.values()[index]        
+            for i, item in enumerate(self.entries.values()):
+                if index == i:
+                    return item
         return self.entries[index]
 
     def __len__(self):
