@@ -31,8 +31,6 @@ class TsVectorTests(unittest.TestCase):
         self.assertEqual(tsv[5].text, 'down')
 
     def test_normalize_and_add(self):
-        data = """Bridging up is harder than bridging down"""
-
         tsv = tsvector.TsVector()
         tsv.load_words_file()
         tsv.normalize_and_add("bridging")
@@ -48,8 +46,6 @@ class TsVectorTests(unittest.TestCase):
         self.assertEqual(tsv[5].text, 'down')
 
     def test_add_entry(self):
-        data = """Bridging up is harder than bridging down"""
-
         tsv = tsvector.TsVector()
         tsv.load_words_file()
         tsv.add_entry("bridge", 1)
@@ -125,12 +121,11 @@ class TsVectorTests(unittest.TestCase):
 
     def test_vector_entry_position(self):
         tse = tsvector.TsVectorEntry("hoop", 1, 'A')
-        self.assertEqual(tse.positions, set([(1,'A')]))
-        tse.positions 
+        self.assertEqual(tse.positions, set([(1, 'A')]))
 
     def test_vector_entry_bad_weight(self):
         with self.assertRaises(Exception):
-            tse = tsvector.TsVectorEntry("hoop", 1, 'X')
+            tsvector.TsVectorEntry("hoop", 1, 'X')
 
     def test_vector_entry_summarize(self):
         tse = tsvector.TsVectorEntry("hoop", 1, 'A')

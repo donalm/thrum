@@ -19,6 +19,7 @@ import re
 
 class TsVectorEntry(object):
     __slots__ = ('text', 'positions',)
+
     def __init__(self, text, position=None, weight='D'):
         self.text = text
         self.positions = set()
@@ -48,7 +49,7 @@ class TsVectorEntry(object):
         if len(self.positions) != len(other.positions):
             return False
         for item in self.positions:
-            if not item in other.positions:
+            if item not in other.positions:
                 return False
         return True
 
@@ -100,7 +101,8 @@ class TsVector(object):
         return '<TsVector (%s)>' % (rval,)
 
     def __str__(self):
-        rval = "' '".join([entry.summarize() for entry in self.entries.values()])
+        rval = "' '".join([entry.summarize() for entry in
+                           self.entries.values()])
         return "'" + rval + "'"
 
     def load_words_file(self):
@@ -109,15 +111,16 @@ class TsVector(object):
 
         try:
             fh = open('/usr/share/dict/words', 'r')
-            TsVector.words = set([word.lower() for word in fh.read().strip().split()])
+            TsVector.words = set([word.lower() for word in
+                                  fh.read().strip().split()])
             fh.close()
-        except Exception as e:
+        except Exception:
             return
 
         words = list(TsVector.words)
 
         for index, word in enumerate(words):
-            words[index] = word.rsplit("'",1)[0]
+            words[index] = word.rsplit("'", 1)[0]
 
             if word.endswith(("ing", "ed", "er", "s")):
                 words[index] = self.find_stem(word)
@@ -162,7 +165,8 @@ class TsVector(object):
             if len(word) > 4 and word[0:-3] in TsVector.words:
                 return word[0:-3]
 
-            if len(word) > 5 and word[-5] == word[-4] and word[0:-4] in TsVector.words:
+            if len(word) > 5 and word[-5] == word[-4] and \
+                    word[0:-4] in TsVector.words:
                 # upping, stopping
                 return word[0:-4]
 
@@ -182,7 +186,7 @@ class TsVector(object):
         return self.find_stem(word)
 
     def normalize_and_add_document(self, document):
-        words = [x for x in self.rgx.split(document) if x not in ('s','')]
+        words = [x for x in self.rgx.split(document) if x not in ('s', '')]
         for index, word in enumerate(words):
             self.normalize_and_add(word, position=index+1)
 
@@ -199,4 +203,3 @@ class TsVector(object):
 
         entry = TsVectorEntry(text, position, weight)
         self.entries[text] = entry
-
